@@ -84,5 +84,9 @@ const styles = StyleSheet.create({
   confirmButton: {
     flexDirection: 'row',
   },
+  image: {
+    width: 15,
+    height: 15
+  }
 });
 export default styles;
