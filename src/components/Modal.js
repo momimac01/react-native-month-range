@@ -3,17 +3,17 @@ import {View, Modal, StyleSheet} from 'react-native';
 import MonthRange from './MonthRange';
 import {COLORS} from '../constants/colors';
 
-function ModalView({modalVisible, onCloseModal}) {
+function ModalView({isOpen, onCloseModal}) {
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={modalVisible}
+      visible={isOpen}
       onRequestClose={onCloseModal}>
       <View
         style={[
           styles.full,
-          modalVisible && {backgroundColor: COLORS.bgTransparent},
+          isOpen && {backgroundColor: COLORS.bgTransparent},
         ]}>
         <MonthRange onCloseModal={onCloseModal} maxRange={5} />
       </View>
