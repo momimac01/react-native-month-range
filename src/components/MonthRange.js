@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import moment from 'moment';
 
-import {BUTTON_ICON_ENUM} from '../src/constants/enum';
-import {data} from '../src/constants/data';
+import {BUTTON_ICON_ENUM} from '../constants/enum';
+import {data} from '../constants/data';
 import {
   getCurrentYear,
   getMonthYear,
@@ -17,8 +17,8 @@ import {
   FORMAT,
   getBgColor,
 } from '../utils';
-import ConfirmButton from '../components/ConfirmButton';
-import ListHeaderComponent from '../components/ListHeaderComponent';
+import ConfirmButton from './ConfirmButton';
+import ListHeaderComponent from './ListHeaderComponent';
 import styles from './styles';
 const MonthRange = ({onCloseModal, maxRange, onConfirm}) => {
   const [start, setStart] = useState();
