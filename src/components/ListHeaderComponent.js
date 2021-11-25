@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {BUTTON_ICON_ENUM} from '../constants/enum';
 //styles
 import styles from './styles';
 // components
 import ButtonItem from './ButtonItem';
 import {COLORS} from '../constants/colors';
-//
+// images link
+const leftIcon = require('../../assets/left.png')
+const rightIcon = require('../../assets/right.png')
+
 const ListHeaderComponent = ({start, end, onClearDate, year, onChangeYear}) => {
   return (
     <View>
@@ -32,6 +35,7 @@ const ListHeader = ({end, start, onPress}) => {
         title={start}
         defaultValue="Bắt đầu"
         disabled={true}
+
       />
       <ButtonItem
         backgroundColor={endBgColor}
@@ -54,6 +58,7 @@ const HeaderMonthRange = ({onChangeYear, year}) => {
         title="-"
         onPress={onChangeYear}
         type={BUTTON_ICON_ENUM.LEFT}
+        source={leftIcon}
       />
       <View style={styles.yearTitleContainer}>
         <Text style={styles.headerYearTitle}>{year}</Text>
@@ -62,11 +67,12 @@ const HeaderMonthRange = ({onChangeYear, year}) => {
         title="+"
         type={BUTTON_ICON_ENUM.RIGHT}
         onPress={onChangeYear}
+        source={rightIcon}
       />
     </View>
   );
 };
-const ButtonIcon = ({title, type = BUTTON_ICON_ENUM.LEFT, onPress}) => {
+const ButtonIcon = ({source, type = BUTTON_ICON_ENUM.LEFT, onPress}) => {
   const style =
     type === BUTTON_ICON_ENUM.LEFT
       ? styles.buttonLeftIcon
@@ -80,7 +86,8 @@ const ButtonIcon = ({title, type = BUTTON_ICON_ENUM.LEFT, onPress}) => {
     <TouchableOpacity
       style={[styles.buttonIconContainer, {...style}]}
       onPress={onPressButton}>
-      <Text>{title}</Text>
+      {/* <Text>{title}</Text> */}
+      <Image style={styles.image} source={source} />
     </TouchableOpacity>
   );
 };
