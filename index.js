@@ -1,1 +1,1 @@
- export { MonthRange} from './components'
+ export { default as MonthRange} from './src/components'
