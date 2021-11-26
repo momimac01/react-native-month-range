@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {COLORS} from '../constants/colors';
+import {data} from '../constants/data';
 export const FORMAT = 'MM/YYYY';
 export const getCurrentYear = () => {
   return moment().year();
@@ -7,9 +8,33 @@ export const getCurrentYear = () => {
 export const getMonthYear = (month, year) => {
   return `${month}-${year}`;
 };
-export const getDisabledItem = ({start, end, year, value, maxRange}) => {
-  if (!start && !end) return false;
+export const getDisabledItem = ({
+  start,
+  end,
+  year,
+  value,
+  maxRange,
+  maxDate,
+  minDate,
+}) => {
   const currentMonthYear = getMonthYear(value, year);
+
+  if (
+    maxDate &&
+    moment(currentMonthYear, FORMAT).isAfter(moment(maxDate, FORMAT))
+  ) {
+    return true;
+  }
+  if (
+    minDate &&
+    moment(currentMonthYear, FORMAT).isBefore(moment(minDate, FORMAT))
+  ) {
+    return true;
+  }
+  if (maxRange === 1) {
+    return false;
+  }
+  if (!start && !end) return false;
   const previousValidMonth = moment(start, FORMAT)
     .subtract(maxRange - 1, 'M')
     .clone()
@@ -32,27 +57,38 @@ export const getDisabledItem = ({start, end, year, value, maxRange}) => {
     }
     return true;
   }
-  if (start && end) {
-    if (
-      moment(start, FORMAT).isSameOrBefore(moment(currentMonthYear, FORMAT)) &&
-      moment(end, FORMAT).isSameOrAfter(moment(currentMonthYear, FORMAT))
-    ) {
-      return false;
-    }
-    return true;
-  }
+
   return true;
 };
 export const isSameDate = (firtDate, secondDate) => {
   return moment(firtDate, FORMAT).isSame(moment(secondDate, FORMAT));
 };
-export const getBgColor = ({start, end, value, year, maxRange, activeColor, deactiveColor, itemColor}) => {
-  let bgColor = itemColor ||  COLORS.ivory;
+export const getBgColor = ({
+  start,
+  end,
+  value,
+  year,
+  maxRange,
+  activeColor,
+  deactiveColor,
+  itemColor,
+  maxDate,
+  minDate,
+}) => {
+  let bgColor = itemColor || COLORS.ivory;
   const current = getMonthYear(value, year);
   const momentStart = moment(start, FORMAT);
   const momentEnd = moment(end, FORMAT);
   const momentCurrent = moment(current, FORMAT);
-  const disabled = getDisabledItem({start, end, year, value, maxRange});
+  const disabled = getDisabledItem({
+    start,
+    end,
+    year,
+    value,
+    maxRange,
+    maxDate,
+    minDate,
+  });
   if (disabled) {
     bgColor = deactiveColor || COLORS.border;
   }
@@ -66,4 +102,13 @@ export const getBgColor = ({start, end, value, year, maxRange, activeColor, deac
     bgColor = activeColor || COLORS.danger;
   }
   return bgColor;
+};
+
+export const getNewDataByLocaleData = (localeData = []) => {
+  return data.map((e, i) => {
+    return {
+      ...e,
+      name: localeData && localeData[i],
+    };
+  });
 };

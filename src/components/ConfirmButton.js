@@ -2,17 +2,25 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {COLORS} from '../constants/colors';
 import ButtonItem from './ButtonItem';
-const ConfirmButton = ({onLeftButton, onRightButton}) => {
+const ConfirmButton = ({
+  onLeftButton,
+  onRightButton,
+  confirmBgColor,
+  leftBottomText,
+  rightBottomText,
+}) => {
   return (
     <View style={styles.confirmButton}>
       <ButtonItem
-        title="Đóng"
+        title={leftBottomText}
         backgroundColor={COLORS.darkGrey}
         onPress={onLeftButton}
+        defaultValue="Close"
       />
       <ButtonItem
-        title="Xác nhận"
-        backgroundColor={COLORS.primaryLight}
+        title={rightBottomText}
+        defaultValue="Confirm"
+        backgroundColor={confirmBgColor}
         onPress={onRightButton}
       />
     </View>
@@ -23,4 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+ConfirmButton.defaultProps = {
+  confirmBgColor: COLORS.primary,
+};
 export default ConfirmButton;

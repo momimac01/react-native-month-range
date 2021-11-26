@@ -7,58 +7,43 @@ import styles from './styles';
 import ButtonItem from './ButtonItem';
 import {COLORS} from '../constants/colors';
 // images link
-const leftIcon = require('../../assets/left.png')
-const rightIcon = require('../../assets/right.png')
+const leftIcon = require('../../assets/left.png');
+const rightIcon = require('../../assets/right.png');
 // text default
 const TEXT_DEFAULT = 'MM-YYYY';
-const ListHeaderComponent = ({
-  start, end, onClearDate, year, onChangeYear,
-  dafaultStartText = TEXT_DEFAULT,
-  dafaultEndText = TEXT_DEFAULT,
-  colorStartActive,
-  colorEndActive,
-  clearText,
-  clearBgColor,
-  clearTextColor
-}) => {
+//
+const ListHeaderComponent = props => {
+  const {year, onChangeYear, onClearDate} = props;
   return (
     <View>
-      <ListHeader
-        start={start}
-        end={end}
-        onPress={onClearDate}
-        dafaultStartText={dafaultStartText}
-        dafaultEndText={dafaultEndText}
-        colorStartActive={colorStartActive}
-        colorEndActive={colorEndActive}
-        clearText={clearText}
-        clearBgColor={clearBgColor}
-        clearTextColor={clearTextColor}
-      />
+      <ListHeader {...props} onPress={onClearDate} />
       <HeaderMonthRange year={year} onChangeYear={onChangeYear} />
     </View>
   );
 };
 const ListHeader = ({
   end,
-  start, 
+  start,
   onPress,
   dafaultEndText,
   dafaultStartText,
-  colorStartActive,
-  colorEndActive,
-  clearText = "Clear",
+  colorBgStartActive,
+  colorBgEndActive,
+  colorTextStartActive,
+  colorTextEndActive,
+  clearText = 'Clear',
   clearBgColor,
-  clearTextColor
+  clearTextColor,
+  maxRange,
 }) => {
   let startBgColor = COLORS.darkGrey;
   let endBgColor = COLORS.darkGrey;
 
   if (start) {
-    startBgColor = colorStartActive || COLORS.orange;
+    startBgColor = colorBgStartActive || COLORS.orange;
   }
   if (end) {
-    endBgColor = colorEndActive || COLORS.orange;
+    endBgColor = colorBgEndActive || COLORS.orange;
   }
   return (
     <View style={styles.listFooterContainer}>
@@ -67,18 +52,21 @@ const ListHeader = ({
         title={start}
         defaultValue={dafaultStartText}
         disabled={true}
-
+        textColor={colorTextStartActive}
       />
-      <ButtonItem
-        backgroundColor={endBgColor}
-        title={end}
-        defaultValue={dafaultEndText}
-        disabled={true}
-      />
+      {maxRange !== 1 && (
+        <ButtonItem
+          backgroundColor={endBgColor}
+          title={end}
+          defaultValue={dafaultEndText}
+          disabled={true}
+          textColor={colorTextEndActive}
+        />
+      )}
       <ButtonItem
         title={clearText}
         onPress={onPress}
-        backgroundColor={ clearBgColor || COLORS.secondary}
+        backgroundColor={clearBgColor || COLORS.secondary}
         textColor={clearTextColor}
       />
     </View>
@@ -120,5 +108,9 @@ const ButtonIcon = ({source, type = BUTTON_ICON_ENUM.LEFT, onPress}) => {
       <Image style={styles.image} source={source} />
     </TouchableOpacity>
   );
+};
+ListHeaderComponent.defaultProps = {
+  dafaultStartText: TEXT_DEFAULT,
+  dafaultEndText: TEXT_DEFAULT,
 };
 export default ListHeaderComponent;

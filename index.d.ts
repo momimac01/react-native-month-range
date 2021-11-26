@@ -11,10 +11,18 @@ export interface MonthRangeProps {
   itemColor?: string,
   dafaultStartText?: string,
   dafaultEndText?: string,
-  colorStartActive?: string,
-  colorEndActive?: string,
+  colorBgStartActive?: string,
+  colorBgEndActive?: string,
   clearText?: string,
   clearBgColor?: string,
-  clearTextColor?: string
+  clearTextColor?: string,
+  colorTextStartActive?: string,
+  colorTextEndActive?: string,
+  numColumns?: number,
+  confirmBgColor?: string,
+  leftBottomText?: string,
+  rightBottomText?: string,
+  maxDate?: string,
+  minDate?: string
 }
 export class MonthRange extends React.Component<MonthRangeProps> {}

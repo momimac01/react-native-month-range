@@ -16,10 +16,10 @@ const ButtonItem = ({
   };
   return (
     <TouchableOpacity
-     disabled={disabled}
+      disabled={disabled}
       style={[styles.buttonItem, {backgroundColor}]}
       onPress={_onPress}>
-      <Text style={[styles.buttonItemTitle, {color: textColor}]}>
+      <Text style={[styles.buttonItemTitle, title && {color: textColor}]}>
         {title || defaultValue}
       </Text>
     </TouchableOpacity>

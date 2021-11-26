@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     color: COLORS.midnightblue,
     fontWeight: 'bold',
+    paddingHorizontal: 5,
   },
   listFooterContainer: {
     flexDirection: 'row',
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 15,
-    height: 15
-  }
+    height: 15,
+  },
 });
 export default styles;

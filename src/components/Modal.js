@@ -4,7 +4,7 @@ import MonthRange from './MonthRange';
 import {COLORS} from '../constants/colors';
 
 function ModalView(props) {
-  const { onCloseModal, isOpen } = props;
+  const {onCloseModal, isOpen} = props;
   return (
     <Modal
       animationType="fade"
@@ -27,6 +27,6 @@ const styles = StyleSheet.create({
   },
 });
 ModalView.defaultProps = {
-  maxRange: 3
-}
+  maxRange: 3,
+};
 export default ModalView;

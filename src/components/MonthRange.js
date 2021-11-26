@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -16,11 +16,13 @@ import {
   getDisabledItem,
   FORMAT,
   getBgColor,
+  getNewDataByLocaleData,
 } from '../utils';
 import ConfirmButton from './ConfirmButton';
 import ListHeaderComponent from './ListHeaderComponent';
 import styles from './styles';
-import { COLORS } from 'react-native-month-range/src/constants/colors';
+import {COLORS} from '../constants/colors';
+const DEFAUT_NUM_COLUMNS = 3;
 const MonthRange = ({
   onCloseModal,
   maxRange,
@@ -31,44 +33,92 @@ const MonthRange = ({
   itemColor = COLORS.ivory,
   dafaultStartText,
   dafaultEndText,
-  colorStartActive,
-  colorEndActive,
+  colorBgStartActive,
+  colorBgEndActive,
   clearText,
   clearBgColor,
-  clearTextColor
+  clearTextColor,
+  colorTextStartActive,
+  colorTextEndActive,
+  numColumns = DEFAUT_NUM_COLUMNS,
+  confirmBgColor,
+  localeData = [],
+  leftBottomText,
+  rightBottomText,
+  maxDate,
+  minDate,
 }) => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-
+  const [dataFlatLit, setData] = useState(data);
+  useEffect(() => {
+    if (localeData && localeData.length !== 0) {
+      const newData = getNewDataByLocaleData(localeData);
+      setData(newData);
+    }
+  }, [localeData]);
   const [year, setYear] = useState(getCurrentYear());
   const _onConfirm = () => {
     if (typeof onConfirm === 'function') {
-      onConfirm(start, end);
+      if (maxRange === 1) {
+        onConfirm(start, start);
+      } else {
+        onConfirm(start, end);
+      }
     }
   };
   const selectDate = value => {
     const currentMonthYear = getMonthYear(value, year);
-    if (!start) {
+
+    if (maxRange === 1) {
       setStart(currentMonthYear);
     } else {
-      if (moment(currentMonthYear, FORMAT).isBefore(moment(start, FORMAT))) {
-        setEnd(start);
+      if (!start) {
         setStart(currentMonthYear);
       } else {
-        setEnd(currentMonthYear);
+        if (moment(currentMonthYear, FORMAT).isBefore(moment(start, FORMAT))) {
+          setEnd(start);
+          setStart(currentMonthYear);
+        } else {
+          setEnd(currentMonthYear);
+        }
       }
     }
   };
   const renderItem = ({item}) => {
     const {name, value} = item;
-    const disabled = getDisabledItem({start, end, year, value, maxRange});
-    const backgroundColor = getBgColor({value, start, end, maxRange, year, activeColor, deactiveColor, itemColor});
+    const disabled = getDisabledItem({
+      start,
+      end,
+      year,
+      value,
+      maxRange,
+      minDate,
+      maxDate,
+    });
+    const backgroundColor = getBgColor({
+      value,
+      start,
+      end,
+      maxRange,
+      year,
+      activeColor,
+      deactiveColor,
+      itemColor,
+      maxDate,
+      minDate,
+    });
     return (
       <TouchableOpacity
         disabled={disabled}
         style={[styles.monthRangeItem, {backgroundColor}]}
         onPress={() => selectDate(value)}>
-        <Text style={[styles.itemText, {color: textColor}]}>{name}</Text>
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={[styles.itemText, {color: textColor}]}>
+          {name}
+        </Text>
       </TouchableOpacity>
     );
   };
@@ -94,11 +144,11 @@ const MonthRange = ({
       <TouchableOpacity onPress={onCloseModal} style={styles.full} />
       <View>
         <FlatList
-          data={data}
+          data={dataFlatLit}
           scrollEnabled={false}
           keyExtractor={item => `${item.id}`}
           renderItem={renderItem}
-          numColumns={3}
+          numColumns={numColumns}
           contentContainerStyle={styles.contentContainer}
           style={styles.monthRangeBody}
           ListHeaderComponent={() => (
@@ -108,19 +158,25 @@ const MonthRange = ({
               onClearDate={onClearDate}
               year={year}
               onChangeYear={onChangeYear}
-              dafaultStartText ={dafaultStartText}
+              dafaultStartText={dafaultStartText}
               dafaultEndText={dafaultEndText}
-              colorStartActive={colorStartActive}
-              colorEndActive= {colorEndActive}
+              colorBgStartActive={colorBgStartActive}
+              colorBgEndActive={colorBgEndActive}
               clearBgColor={clearBgColor}
               clearTextColor={clearTextColor}
               clearText={clearText}
+              colorTextStartActive={colorTextStartActive}
+              colorTextEndActive={colorTextEndActive}
+              maxRange={maxRange}
             />
           )}
           ListFooterComponent={() => (
             <ConfirmButton
               onLeftButton={onCloseModal}
               onRightButton={_onConfirm}
+              confirmBgColor={confirmBgColor}
+              rightBottomText={rightBottomText}
+              leftBottomText={leftBottomText}
             />
           )}
         />
