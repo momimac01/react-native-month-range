@@ -9,44 +9,77 @@ import {COLORS} from '../constants/colors';
 // images link
 const leftIcon = require('../../assets/left.png')
 const rightIcon = require('../../assets/right.png')
-
-const ListHeaderComponent = ({start, end, onClearDate, year, onChangeYear}) => {
+// text default
+const TEXT_DEFAULT = 'MM-YYYY';
+const ListHeaderComponent = ({
+  start, end, onClearDate, year, onChangeYear,
+  dafaultStartText = TEXT_DEFAULT,
+  dafaultEndText = TEXT_DEFAULT,
+  colorStartActive,
+  colorEndActive,
+  clearText,
+  clearBgColor,
+  clearTextColor
+}) => {
   return (
     <View>
-      <ListHeader start={start} end={end} onPress={onClearDate} />
+      <ListHeader
+        start={start}
+        end={end}
+        onPress={onClearDate}
+        dafaultStartText={dafaultStartText}
+        dafaultEndText={dafaultEndText}
+        colorStartActive={colorStartActive}
+        colorEndActive={colorEndActive}
+        clearText={clearText}
+        clearBgColor={clearBgColor}
+        clearTextColor={clearTextColor}
+      />
       <HeaderMonthRange year={year} onChangeYear={onChangeYear} />
     </View>
   );
 };
-const ListHeader = ({end, start, onPress}) => {
+const ListHeader = ({
+  end,
+  start, 
+  onPress,
+  dafaultEndText,
+  dafaultStartText,
+  colorStartActive,
+  colorEndActive,
+  clearText = "Clear",
+  clearBgColor,
+  clearTextColor
+}) => {
   let startBgColor = COLORS.darkGrey;
   let endBgColor = COLORS.darkGrey;
 
   if (start) {
-    startBgColor = COLORS.orange;
+    startBgColor = colorStartActive || COLORS.orange;
   }
   if (end) {
-    endBgColor = COLORS.orange;
+    endBgColor = colorEndActive || COLORS.orange;
   }
   return (
     <View style={styles.listFooterContainer}>
       <ButtonItem
         backgroundColor={startBgColor}
         title={start}
-        defaultValue="Bắt đầu"
+        defaultValue={dafaultStartText}
         disabled={true}
 
       />
       <ButtonItem
         backgroundColor={endBgColor}
         title={end}
-        defaultValue="Kết thúc"
+        defaultValue={dafaultEndText}
         disabled={true}
       />
       <ButtonItem
-        title="xoá"
+        title={clearText}
         onPress={onPress}
-        backgroundColor={COLORS.secondary}
+        backgroundColor={ clearBgColor || COLORS.secondary}
+        textColor={clearTextColor}
       />
     </View>
   );
@@ -55,7 +88,6 @@ const HeaderMonthRange = ({onChangeYear, year}) => {
   return (
     <View style={styles.yearContainer}>
       <ButtonIcon
-        title="-"
         onPress={onChangeYear}
         type={BUTTON_ICON_ENUM.LEFT}
         source={leftIcon}
@@ -64,7 +96,6 @@ const HeaderMonthRange = ({onChangeYear, year}) => {
         <Text style={styles.headerYearTitle}>{year}</Text>
       </View>
       <ButtonIcon
-        title="+"
         type={BUTTON_ICON_ENUM.RIGHT}
         onPress={onChangeYear}
         source={rightIcon}
@@ -86,7 +117,6 @@ const ButtonIcon = ({source, type = BUTTON_ICON_ENUM.LEFT, onPress}) => {
     <TouchableOpacity
       style={[styles.buttonIconContainer, {...style}]}
       onPress={onPressButton}>
-      {/* <Text>{title}</Text> */}
       <Image style={styles.image} source={source} />
     </TouchableOpacity>
   );

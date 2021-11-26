@@ -46,24 +46,24 @@ export const getDisabledItem = ({start, end, year, value, maxRange}) => {
 export const isSameDate = (firtDate, secondDate) => {
   return moment(firtDate, FORMAT).isSame(moment(secondDate, FORMAT));
 };
-export const getBgColor = ({start, end, value, year, maxRange}) => {
-  let bgColor = COLORS.ivory;
+export const getBgColor = ({start, end, value, year, maxRange, activeColor, deactiveColor, itemColor}) => {
+  let bgColor = itemColor ||  COLORS.ivory;
   const current = getMonthYear(value, year);
   const momentStart = moment(start, FORMAT);
   const momentEnd = moment(end, FORMAT);
   const momentCurrent = moment(current, FORMAT);
   const disabled = getDisabledItem({start, end, year, value, maxRange});
   if (disabled) {
-    bgColor = COLORS.border;
+    bgColor = deactiveColor || COLORS.border;
   }
   if (momentStart.isSame(momentCurrent) || momentEnd.isSame(momentCurrent)) {
-    bgColor = COLORS.danger;
+    bgColor = activeColor || COLORS.danger;
   }
   if (
     momentCurrent.isSameOrAfter(momentStart) &&
     momentCurrent.isSameOrBefore(momentEnd)
   ) {
-    bgColor = COLORS.danger;
+    bgColor = activeColor || COLORS.danger;
   }
   return bgColor;
 };

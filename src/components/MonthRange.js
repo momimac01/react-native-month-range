@@ -20,7 +20,23 @@ import {
 import ConfirmButton from './ConfirmButton';
 import ListHeaderComponent from './ListHeaderComponent';
 import styles from './styles';
-const MonthRange = ({onCloseModal, maxRange, onConfirm}) => {
+import { COLORS } from 'react-native-month-range/src/constants/colors';
+const MonthRange = ({
+  onCloseModal,
+  maxRange,
+  onConfirm,
+  activeColor = COLORS.danger,
+  textColor = COLORS.black,
+  deactiveColor = COLORS.border,
+  itemColor = COLORS.ivory,
+  dafaultStartText,
+  dafaultEndText,
+  colorStartActive,
+  colorEndActive,
+  clearText,
+  clearBgColor,
+  clearTextColor
+}) => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
 
@@ -46,13 +62,13 @@ const MonthRange = ({onCloseModal, maxRange, onConfirm}) => {
   const renderItem = ({item}) => {
     const {name, value} = item;
     const disabled = getDisabledItem({start, end, year, value, maxRange});
-    const backgroundColor = getBgColor({value, start, end, maxRange, year});
+    const backgroundColor = getBgColor({value, start, end, maxRange, year, activeColor, deactiveColor, itemColor});
     return (
       <TouchableOpacity
         disabled={disabled}
         style={[styles.monthRangeItem, {backgroundColor}]}
         onPress={() => selectDate(value)}>
-        <Text style={styles.itemText}>{name}</Text>
+        <Text style={[styles.itemText, {color: textColor}]}>{name}</Text>
       </TouchableOpacity>
     );
   };
@@ -92,6 +108,13 @@ const MonthRange = ({onCloseModal, maxRange, onConfirm}) => {
               onClearDate={onClearDate}
               year={year}
               onChangeYear={onChangeYear}
+              dafaultStartText ={dafaultStartText}
+              dafaultEndText={dafaultEndText}
+              colorStartActive={colorStartActive}
+              colorEndActive= {colorEndActive}
+              clearBgColor={clearBgColor}
+              clearTextColor={clearTextColor}
+              clearText={clearText}
             />
           )}
           ListFooterComponent={() => (
