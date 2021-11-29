@@ -47,6 +47,7 @@ const MonthRange = ({
   rightBottomText,
   maxDate,
   minDate,
+  textColorActive,
 }) => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
@@ -96,7 +97,7 @@ const MonthRange = ({
       minDate,
       maxDate,
     });
-    const backgroundColor = getBgColor({
+    const {bgColor, textColorItem} = getBgColor({
       value,
       start,
       end,
@@ -107,16 +108,18 @@ const MonthRange = ({
       itemColor,
       maxDate,
       minDate,
+      textColorActive,
+      textColor,
     });
     return (
       <TouchableOpacity
         disabled={disabled}
-        style={[styles.monthRangeItem, {backgroundColor}]}
+        style={[styles.monthRangeItem, {backgroundColor: bgColor}]}
         onPress={() => selectDate(value)}>
         <Text
           adjustsFontSizeToFit
           numberOfLines={1}
-          style={[styles.itemText, {color: textColor}]}>
+          style={[styles.itemText, {color: textColorItem}]}>
           {name}
         </Text>
       </TouchableOpacity>

@@ -74,8 +74,11 @@ export const getBgColor = ({
   itemColor,
   maxDate,
   minDate,
+  textColorActive,
+  textColor,
 }) => {
   let bgColor = itemColor || COLORS.ivory;
+  let textColorItem = textColor;
   const current = getMonthYear(value, year);
   const momentStart = moment(start, FORMAT);
   const momentEnd = moment(end, FORMAT);
@@ -94,14 +97,16 @@ export const getBgColor = ({
   }
   if (momentStart.isSame(momentCurrent) || momentEnd.isSame(momentCurrent)) {
     bgColor = activeColor || COLORS.danger;
+    textColorItem = textColorActive;
   }
   if (
     momentCurrent.isSameOrAfter(momentStart) &&
     momentCurrent.isSameOrBefore(momentEnd)
   ) {
     bgColor = activeColor || COLORS.danger;
+    textColorItem = textColorActive;
   }
-  return bgColor;
+  return {bgColor, textColorItem};
 };
 
 export const getNewDataByLocaleData = (localeData = []) => {
