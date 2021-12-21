@@ -6,7 +6,7 @@ export const getCurrentYear = () => {
   return moment().year();
 };
 export const getMonthYear = (month, year) => {
-  return `${month}-${year}`;
+  return `${month}/${year}`;
 };
 export const getDisabledItem = ({
   start,
@@ -60,8 +60,8 @@ export const getDisabledItem = ({
 
   return true;
 };
-export const isSameDate = (firtDate, secondDate) => {
-  return moment(firtDate, FORMAT).isSame(moment(secondDate, FORMAT));
+export const isSameDate = (firstDate, secondDate) => {
+  return moment(firstDate, FORMAT).isSame(moment(secondDate, FORMAT));
 };
 export const getBgColor = ({
   start,
@@ -70,7 +70,7 @@ export const getBgColor = ({
   year,
   maxRange,
   activeColor,
-  deactiveColor,
+  deactivateColor,
   itemColor,
   maxDate,
   minDate,

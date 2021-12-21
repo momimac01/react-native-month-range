@@ -10,7 +10,7 @@ import {COLORS} from '../constants/colors';
 const leftIcon = require('../../assets/left.png');
 const rightIcon = require('../../assets/right.png');
 // text default
-const TEXT_DEFAULT = 'MM-YYYY';
+const TEXT_DEFAULT = 'MM/YYYY';
 //
 const ListHeaderComponent = props => {
   const {year, onChangeYear, onClearDate} = props;
@@ -25,8 +25,8 @@ const ListHeader = ({
   end,
   start,
   onPress,
-  dafaultEndText,
-  dafaultStartText,
+  defaultEndText,
+  defaultStartText,
   colorBgStartActive,
   colorBgEndActive,
   colorTextStartActive,
@@ -50,7 +50,7 @@ const ListHeader = ({
       <ButtonItem
         backgroundColor={startBgColor}
         title={start}
-        defaultValue={dafaultStartText}
+        defaultValue={defaultStartText}
         disabled={true}
         textColor={colorTextStartActive}
       />
@@ -58,7 +58,7 @@ const ListHeader = ({
         <ButtonItem
           backgroundColor={endBgColor}
           title={end}
-          defaultValue={dafaultEndText}
+          defaultValue={defaultEndText}
           disabled={true}
           textColor={colorTextEndActive}
         />
@@ -110,7 +110,7 @@ const ButtonIcon = ({source, type = BUTTON_ICON_ENUM.LEFT, onPress}) => {
   );
 };
 ListHeaderComponent.defaultProps = {
-  dafaultStartText: TEXT_DEFAULT,
-  dafaultEndText: TEXT_DEFAULT,
+  defaultStartText: TEXT_DEFAULT,
+  defaultEndText: TEXT_DEFAULT,
 };
 export default ListHeaderComponent;

@@ -22,17 +22,17 @@ import ConfirmButton from './ConfirmButton';
 import ListHeaderComponent from './ListHeaderComponent';
 import styles from './styles';
 import {COLORS} from '../constants/colors';
-const DEFAUT_NUM_COLUMNS = 3;
+const DEFAULT_NUM_COLUMNS = 3;
 const MonthRange = ({
   onCloseModal,
   maxRange,
   onConfirm,
   activeColor = COLORS.danger,
   textColor = COLORS.grey2,
-  deactiveColor = COLORS.border,
+  deactivateColor = COLORS.border,
   itemColor = COLORS.ivory,
-  dafaultStartText,
-  dafaultEndText,
+  defaultStartText,
+  defaultEndText,
   colorBgStartActive,
   colorBgEndActive,
   clearText,
@@ -40,17 +40,19 @@ const MonthRange = ({
   clearTextColor,
   colorTextStartActive,
   colorTextEndActive,
-  numColumns = DEFAUT_NUM_COLUMNS,
+  numColumns = DEFAULT_NUM_COLUMNS,
   confirmBgColor,
   localeData = [],
   leftBottomText,
   rightBottomText,
   maxDate,
   minDate,
+  startDefault,
+  endDefault,
   textColorActive = COLORS.grey5,
 }) => {
-  const [start, setStart] = useState();
-  const [end, setEnd] = useState();
+  const [start, setStart] = useState(startDefault);
+  const [end, setEnd] = useState(endDefault);
   const [dataFlatLit, setData] = useState(data);
   useEffect(() => {
     if (localeData && localeData.length !== 0) {
@@ -104,7 +106,7 @@ const MonthRange = ({
       maxRange,
       year,
       activeColor,
-      deactiveColor,
+      deactivateColor: deactivateColor,
       itemColor,
       maxDate,
       minDate,
@@ -161,8 +163,8 @@ const MonthRange = ({
               onClearDate={onClearDate}
               year={year}
               onChangeYear={onChangeYear}
-              dafaultStartText={dafaultStartText}
-              dafaultEndText={dafaultEndText}
+              defaultStartText={defaultStartText}
+              defaultEndText={defaultEndText}
               colorBgStartActive={colorBgStartActive}
               colorBgEndActive={colorBgEndActive}
               clearBgColor={clearBgColor}
