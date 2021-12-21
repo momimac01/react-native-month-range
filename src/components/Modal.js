@@ -7,14 +7,14 @@ function ModalView(props) {
   const {onCloseModal, isOpen} = props;
   return (
     <Modal
-      animationType="fade"
+      animationType="slide"
       transparent={true}
       visible={isOpen}
       onRequestClose={onCloseModal}>
       <View
         style={[
           styles.full,
-          isOpen && {backgroundColor: COLORS.bgTransparent},
+          isOpen,
         ]}>
         <MonthRange {...props} />
       </View>

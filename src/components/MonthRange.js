@@ -28,7 +28,7 @@ const MonthRange = ({
   maxRange,
   onConfirm,
   activeColor = COLORS.danger,
-  textColor = COLORS.black,
+  textColor = COLORS.grey2,
   deactiveColor = COLORS.border,
   itemColor = COLORS.ivory,
   dafaultStartText,
@@ -47,7 +47,7 @@ const MonthRange = ({
   rightBottomText,
   maxDate,
   minDate,
-  textColorActive,
+  textColorActive = COLORS.grey5,
 }) => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
@@ -145,7 +145,7 @@ const MonthRange = ({
   return (
     <SafeAreaView style={[styles.full, {marginHorizontal: 10}]}>
       <TouchableOpacity onPress={onCloseModal} style={styles.full} />
-      <View>
+      <View style={styles.monthRangeBodyContainer} >
         <FlatList
           data={dataFlatLit}
           scrollEnabled={false}

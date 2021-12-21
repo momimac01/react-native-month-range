@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
   },
+  monthRangeBodyContainer: {
+    paddingHorizontal: 10,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+    backgroundColor: COLORS.grey5
+  },
   buttonIconContainer: {
     width: 50,
     height: 50,

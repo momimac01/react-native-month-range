@@ -20,4 +20,10 @@ export const COLORS = {
   bgTransparent: 'rgba(6, 9, 0, 0.2)',
   ivory: '#fffff0',
   midnightblue: '#191970',
+  grey0: '#393e42',
+  grey1: '#43484d',
+  grey2: '#5e6977',
+  grey3: '#86939e',
+  grey4: '#bdc6cf',
+  grey5: '#e1e8ee',
 };

@@ -77,7 +77,7 @@ export const getBgColor = ({
   textColorActive,
   textColor,
 }) => {
-  let bgColor = itemColor || COLORS.ivory;
+  let bgColor = itemColor || COLORS.lightBlue;
   let textColorItem = textColor;
   const current = getMonthYear(value, year);
   const momentStart = moment(start, FORMAT);
@@ -93,7 +93,7 @@ export const getBgColor = ({
     minDate,
   });
   if (disabled) {
-    bgColor = deactiveColor || COLORS.border;
+    textColorItem= COLORS.grey5
   }
   if (momentStart.isSame(momentCurrent) || momentEnd.isSame(momentCurrent)) {
     bgColor = activeColor || COLORS.danger;
