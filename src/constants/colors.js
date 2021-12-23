@@ -26,4 +26,7 @@ export const COLORS = {
   grey3: '#86939e',
   grey4: '#bdc6cf',
   grey5: '#e1e8ee',
+  clearBg: '#FFE5E6',
+  clearTextColor: '#EF0707',
+  headerTextColor: '#197B41'
 };

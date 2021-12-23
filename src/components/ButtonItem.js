@@ -8,6 +8,7 @@ const ButtonItem = ({
   textColor = COLORS.white,
   defaultValue,
   disabled = false,
+  buttonStyle ={}
 }) => {
   const _onPress = () => {
     if (typeof onPress === 'function') {
@@ -17,7 +18,7 @@ const ButtonItem = ({
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={[styles.buttonItem, {backgroundColor}]}
+      style={[styles.buttonItem, {backgroundColor}, disabled && {opacity: 0.5}, {...buttonStyle} ]}
       onPress={_onPress}>
       <Text style={[styles.buttonItemTitle, title && {color: textColor}]}>
         {title || defaultValue}

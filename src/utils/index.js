@@ -44,21 +44,21 @@ export const getDisabledItem = ({
     .clone()
     .format(FORMAT);
 
-  if (start && !end) {
-    if (
-      moment(currentMonthYear, FORMAT).isSameOrAfter(
-        moment(previousValidMonth, FORMAT),
-      ) &&
-      moment(currentMonthYear, FORMAT).isSameOrBefore(
-        moment(nextValidMonth, FORMAT),
-      )
-    ) {
-      return false;
-    }
-    return true;
-  }
+  // if (start && !end) {
+  //   if (
+  //     moment(currentMonthYear, FORMAT).isSameOrAfter(
+  //       moment(previousValidMonth, FORMAT),
+  //     ) &&
+  //     moment(currentMonthYear, FORMAT).isSameOrBefore(
+  //       moment(nextValidMonth, FORMAT),
+  //     )
+  //   ) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-  return true;
+  return false;
 };
 export const isSameDate = (firstDate, secondDate) => {
   return moment(firstDate, FORMAT).isSame(moment(secondDate, FORMAT));
@@ -74,10 +74,10 @@ export const getBgColor = ({
   itemColor,
   maxDate,
   minDate,
-  textColorActive,
+  textColorActive = COLORS.headerTextColor,
   textColor,
 }) => {
-  let bgColor = itemColor || COLORS.lightBlue;
+  let bgColor = itemColor || COLORS.headerTextColor;
   let textColorItem = textColor;
   const current = getMonthYear(value, year);
   const momentStart = moment(start, FORMAT);

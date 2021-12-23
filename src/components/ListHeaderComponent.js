@@ -11,6 +11,7 @@ const leftIcon = require('../../assets/left.png');
 const rightIcon = require('../../assets/right.png');
 // text default
 const TEXT_DEFAULT = 'MM/YYYY';
+const CLEAR_TEXT_DEFAULT = 'Clear';
 //
 const ListHeaderComponent = props => {
   const {year, onChangeYear, onClearDate} = props;
@@ -27,32 +28,32 @@ const ListHeader = ({
   onPress,
   defaultEndText,
   defaultStartText,
-  colorBgStartActive,
-  colorBgEndActive,
-  colorTextStartActive,
-  colorTextEndActive,
-  clearText = 'Clear',
+  colorTextStartActive = COLORS.headerTextColor,
+  clearText = CLEAR_TEXT_DEFAULT,
   clearBgColor,
-  clearTextColor,
+  clearTextColor = COLORS.clearTextColor,
   maxRange,
 }) => {
-  let startBgColor = COLORS.darkGrey;
-  let endBgColor = COLORS.darkGrey;
-
+  let endBgColor = COLORS.grey3;
+  let startBgColor = COLORS.grey3
+  let startStyle = {};
+  let endStyle = {}
   if (start) {
-    startBgColor = colorBgStartActive || COLORS.orange;
+    startStyle = styles.headerButton
   }
   if (end) {
-    endBgColor = colorBgEndActive || COLORS.orange;
+    endStyle =styles.headerButton;
   }
   return (
     <View style={styles.listFooterContainer}>
       <ButtonItem
-        backgroundColor={startBgColor}
         title={start}
         defaultValue={defaultStartText}
-        disabled={true}
+        backgroundColor={startBgColor}
         textColor={colorTextStartActive}
+        buttonStyle={startStyle}
+        disabled={true}
+
       />
       {maxRange !== 1 && (
         <ButtonItem
@@ -60,14 +61,17 @@ const ListHeader = ({
           title={end}
           defaultValue={defaultEndText}
           disabled={true}
-          textColor={colorTextEndActive}
+          textColor={colorTextStartActive}
+          buttonStyle={endStyle}
         />
       )}
       <ButtonItem
         title={clearText}
         onPress={onPress}
-        backgroundColor={clearBgColor || COLORS.secondary}
+        backgroundColor={clearBgColor || COLORS.clearBg}
         textColor={clearTextColor}
+        buttonStyle={styles.clearButton}
+        
       />
     </View>
   );

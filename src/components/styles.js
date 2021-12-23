@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 5,
-    backgroundColor: COLORS.ivory,
+    backgroundColor: COLORS.white,
   },
   monthRangeBody: {
     marginVertical: 10,
@@ -95,5 +95,23 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
   },
+  error: {
+    fontSize: 12,
+    color: COLORS.danger,
+    paddingBottom: 10
+  },
+  emptyView: {
+    height: 24
+  },
+  clearButton: {
+    borderWidth: 1,
+    borderColor: COLORS.clearTextColor
+  },
+  headerButton: {
+    borderWidth: 1,
+    borderColor: '#197B41',
+    backgroundColor: COLORS.white,
+    opacity: 1
+  }
 });
 export default styles;

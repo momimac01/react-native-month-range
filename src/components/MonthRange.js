@@ -23,6 +23,7 @@ import ListHeaderComponent from './ListHeaderComponent';
 import styles from './styles';
 import {COLORS} from '../constants/colors';
 const DEFAULT_NUM_COLUMNS = 3;
+const EMPTY_ERROR = 'Vui lòng chọn khoảng thời gian bạn muốn tìm kiếm';
 const MonthRange = ({
   onCloseModal,
   maxRange,
@@ -49,11 +50,12 @@ const MonthRange = ({
   minDate,
   startDefault,
   endDefault,
-  textColorActive = COLORS.grey5,
+  textColorActive = COLORS.headerTextColor,
 }) => {
   const [start, setStart] = useState(startDefault);
   const [end, setEnd] = useState(endDefault);
   const [dataFlatLit, setData] = useState(data);
+  const [error, setError] = useState();
   useEffect(() => {
     if (localeData && localeData.length !== 0) {
       const newData = getNewDataByLocaleData(localeData);
@@ -79,7 +81,17 @@ const MonthRange = ({
       if (!start) {
         setStart(currentMonthYear);
       } else {
-        if (moment(currentMonthYear, FORMAT).isBefore(moment(start, FORMAT))) {
+        const currentRange = Math.abs(moment(currentMonthYear, FORMAT).diff(moment(start, FORMAT), 'month'))
+        if (currentRange >= maxRange) {
+          setError(`Thời gian chọn tối đa là ${maxRange} tháng`)
+        } else {
+          setError(null)
+        }
+        if (moment(currentMonthYear, FORMAT).isSame(moment(start, FORMAT))) {
+          setEnd(null);
+          setStart(null);
+          setError(EMPTY_ERROR);
+        } else if (moment(currentMonthYear, FORMAT).isBefore(moment(start, FORMAT))) {
           setEnd(start);
           setStart(currentMonthYear);
         } else {
@@ -116,7 +128,7 @@ const MonthRange = ({
     return (
       <TouchableOpacity
         disabled={disabled}
-        style={[styles.monthRangeItem, {backgroundColor: bgColor}]}
+        style={[styles.monthRangeItem, { borderWidth:1, borderColor: bgColor}]}
         onPress={() => selectDate(value)}>
         <Text
           adjustsFontSizeToFit
@@ -130,6 +142,7 @@ const MonthRange = ({
   const onClearDate = () => {
     setEnd();
     setStart();
+    setError(EMPTY_ERROR);
   };
   const onChangeYear = type => {
     switch (type) {
@@ -170,24 +183,34 @@ const MonthRange = ({
               clearBgColor={clearBgColor}
               clearTextColor={clearTextColor}
               clearText={clearText}
-              colorTextStartActive={colorTextStartActive}
-              colorTextEndActive={colorTextEndActive}
               maxRange={maxRange}
             />
           )}
           ListFooterComponent={() => (
-            <ConfirmButton
-              onLeftButton={onCloseModal}
-              onRightButton={_onConfirm}
-              confirmBgColor={confirmBgColor}
-              rightBottomText={rightBottomText}
-              leftBottomText={leftBottomText}
+            <>
+              <RenderErrorView error={error} maxRange={maxRange} />
+              <ConfirmButton
+                onLeftButton={onCloseModal}
+                onRightButton={_onConfirm}
+                confirmBgColor={confirmBgColor}
+                rightBottomText={rightBottomText}
+                leftBottomText={leftBottomText}
+                disabledRightButton={error}
             />
+            </>
+
           )}
         />
       </View>
     </SafeAreaView>
   );
 };
+
+const RenderErrorView = ({error}) => {
+  if (!error) {
+    return <View style={styles.emptyView} />
+  }
+  return <Text style={styles.error} >{error}</Text>
+}
 
 export default MonthRange;

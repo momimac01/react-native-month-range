@@ -8,6 +8,7 @@ const ConfirmButton = ({
   confirmBgColor,
   leftBottomText,
   rightBottomText,
+  disabledRightButton
 }) => {
   return (
     <View style={styles.confirmButton}>
@@ -22,6 +23,7 @@ const ConfirmButton = ({
         defaultValue="Confirm"
         backgroundColor={confirmBgColor}
         onPress={onRightButton}
+        disabled={disabledRightButton}
       />
     </View>
   );

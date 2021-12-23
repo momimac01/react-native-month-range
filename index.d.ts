@@ -16,8 +16,6 @@ export interface MonthRangeProps {
   clearText?: string,
   clearBgColor?: string,
   clearTextColor?: string,
-  colorTextStartActive?: string,
-  colorTextEndActive?: string,
   numColumns?: number,
   confirmBgColor?: string,
   leftBottomText?: string,
