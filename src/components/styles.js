@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 2,
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 5,
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   itemText: {
     paddingVertical: 10,
     color: COLORS.midnightblue,
-    fontWeight: 'bold',
     paddingHorizontal: 5,
   },
   listFooterContainer: {
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
   },
   headerButton: {
     borderWidth: 1,
-    borderColor: '#197B41',
+    borderColor: COLORS.primary,
     backgroundColor: COLORS.white,
     opacity: 1
   }

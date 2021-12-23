@@ -80,6 +80,9 @@ const MonthRange = ({
     } else {
       if (!start) {
         setStart(currentMonthYear);
+        if (error) {
+          setError(null)
+        }
       } else {
         const currentRange = Math.abs(moment(currentMonthYear, FORMAT).diff(moment(start, FORMAT), 'month'))
         if (currentRange >= maxRange) {

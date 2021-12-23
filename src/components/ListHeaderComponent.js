@@ -28,7 +28,7 @@ const ListHeader = ({
   onPress,
   defaultEndText,
   defaultStartText,
-  colorTextStartActive = COLORS.headerTextColor,
+  colorTextStartActive = COLORS.primary,
   clearText = CLEAR_TEXT_DEFAULT,
   clearBgColor,
   clearTextColor = COLORS.clearTextColor,
