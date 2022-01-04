@@ -77,6 +77,9 @@ const MonthRange = ({
 
     if (maxRange === 1) {
       setStart(currentMonthYear);
+      if (error) {
+        setError(null)
+      }
     } else {
       if (!start) {
         setStart(currentMonthYear);
