@@ -39,8 +39,6 @@ const MonthRange = ({
   clearText,
   clearBgColor,
   clearTextColor,
-  colorTextStartActive,
-  colorTextEndActive,
   numColumns = DEFAULT_NUM_COLUMNS,
   confirmBgColor,
   localeData = [],
@@ -56,13 +54,19 @@ const MonthRange = ({
   const [end, setEnd] = useState(endDefault);
   const [dataFlatLit, setData] = useState(data);
   const [error, setError] = useState();
+  const [year, setYear] = useState(getCurrentYear());
+
   useEffect(() => {
     if (localeData && localeData.length !== 0) {
       const newData = getNewDataByLocaleData(localeData);
       setData(newData);
     }
   }, [localeData]);
-  const [year, setYear] = useState(getCurrentYear());
+  useEffect(() => {
+    if (startDefault) {
+      setYear(moment(startDefault, FORMAT).get('y'))
+    }
+  },[startDefault])
   const _onConfirm = () => {
     if (typeof onConfirm === 'function') {
       if (maxRange === 1) {
@@ -77,6 +81,9 @@ const MonthRange = ({
 
     if (maxRange === 1) {
       setStart(currentMonthYear);
+      if (end) {
+        setEnd(null);
+      }
       if (error) {
         setError(null)
       }
